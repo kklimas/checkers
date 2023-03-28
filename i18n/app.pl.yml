@@ -1,0 +1,8 @@
+pl:
+  title: Checkers 2.0
+  welcome_message: Witaj użytkowniku!
+
+  menu:
+    home: Dom
+    game: Zagraj
+    settings: Ustawienia

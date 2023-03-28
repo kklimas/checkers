@@ -1,0 +1,16 @@
+en:
+  title: Checkers 2.0
+  welcome_message: Hello User
+
+  menu:
+    home:
+      title: Home
+      label: This is home view
+    game:
+      title: Game
+      label: This is game view
+      user: Play vs other user
+      ai: Play versus computer
+    settings:
+      title: Settings
+      label: This is a settings view
