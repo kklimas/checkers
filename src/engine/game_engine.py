@@ -1,9 +1,9 @@
 import pygame
-from .constants import BLACK, WHITE, BLUE, SQUARE_SIZE
-from checkers.board import Board
+from resources.constants import BLACK, WHITE, BLUE, SQUARE_SIZE
+from src.model.board import Board
 
 
-class Game:
+class GameEngine:
     def __init__(self, window):
         self._init()
         self.window = window
@@ -59,8 +59,5 @@ class Game:
             pygame.draw.circle(self.window, BLUE, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), 15)
 
     def change_turn(self):
-        self.valid_moves = {}
-        if self.turn == BLACK:
-            self.turn = WHITE
-        else:
-            self.turn = BLACK
+        self.valid_moves.clear()
+        self.turn = WHITE if self.turn == BLACK else BLACK

@@ -1,6 +1,6 @@
 import pygame
-from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE
-from checkers.game import Game
+from resources.constants import WIDTH, HEIGHT, SQUARE_SIZE
+from src.engine.game_engine import GameEngine
 
 FPS = 30
 
@@ -18,7 +18,7 @@ def get_row_col_from_mouse(pos):
 def main():
     run = True
     clock = pygame.time.Clock()
-    game = Game(window)
+    game = GameEngine(window)
 
     while run:
         clock.tick(FPS)

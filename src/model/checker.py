@@ -1,8 +1,8 @@
-from .constants import WHITE, SQUARE_SIZE, CROWN
+from resources.constants import WHITE, SQUARE_SIZE, CROWN
 import pygame
 
 
-class Piece:
+class Checker:
     PADDING = 15
     OUTLINE = 2
 

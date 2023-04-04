@@ -1,6 +1,6 @@
 import pygame
-from .constants import BLACK, ROWS, GREY, SQUARE_SIZE, COLS, WHITE
-from .piece import Piece
+from resources.constants import BLACK, ROWS, GREY, SQUARE_SIZE, COLS, WHITE
+from src.model.checker import Checker
 
 
 class Board:
@@ -16,9 +16,9 @@ class Board:
             for col in range(COLS):
                 if (row + col) % 2 == 1:
                     if row < 3:
-                        self.board[row][col] = Piece(row, col, WHITE)
+                        self.board[row][col] = Checker(row, col, WHITE)
                     elif row > 4:
-                        self.board[row][col] = Piece(row, col, BLACK)
+                        self.board[row][col] = Checker(row, col, BLACK)
 
     def draw(self, window):
         self.draw_squares(window)
