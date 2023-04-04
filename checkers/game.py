@@ -1,22 +1,22 @@
 import pygame
-from .constants import RED, WHITE, BLUE, SQUARE_SIZE
+from .constants import BLACK, WHITE, BLUE, SQUARE_SIZE
 from checkers.board import Board
 
 
 class Game:
-    def __init__(self, win):
+    def __init__(self, window):
         self._init()
-        self.win = win
+        self.window = window
 
     def update(self):
-        self.board.draw(self.win)
+        self.board.draw(self.window)
         self.draw_valid_moves(self.valid_moves)
         pygame.display.update()
 
     def _init(self):
         self.selected = None
         self.board = Board()
-        self.turn = RED
+        self.turn = BLACK
         self.valid_moves = {}
 
     def winner(self):
@@ -56,12 +56,11 @@ class Game:
     def draw_valid_moves(self, moves):
         for move in moves:
             row, col = move
-            pygame.draw.circle(self.win, BLUE,
-                               (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), 15)
+            pygame.draw.circle(self.window, BLUE, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), 15)
 
     def change_turn(self):
         self.valid_moves = {}
-        if self.turn == RED:
+        if self.turn == BLACK:
             self.turn = WHITE
         else:
-            self.turn = RED
+            self.turn = BLACK
