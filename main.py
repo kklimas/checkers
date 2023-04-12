@@ -2,7 +2,7 @@ import pygame
 from resources.constants import WIDTH, HEIGHT, SQUARE_SIZE
 from src.engine.game_engine import GameEngine
 
-FPS = 30
+FPS = 5
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')

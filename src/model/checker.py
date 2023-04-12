@@ -33,6 +33,3 @@ class Checker:
         self.row = row
         self.col = col
         self.calc_pos()
-
-    def __repr__(self):
-        return str(self.color)

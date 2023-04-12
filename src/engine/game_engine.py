@@ -1,6 +1,7 @@
 import pygame
 from resources.constants import BLACK, WHITE, BLUE, SQUARE_SIZE
 from src.model.board import Board
+from src.model.game_mode import GameMode
 
 
 class GameEngine:
@@ -18,9 +19,10 @@ class GameEngine:
         self.board = Board()
         self.turn = BLACK
         self.valid_moves = {}
+        self.mode = GameMode(True, False, False)
 
     def winner(self):
-        return self.board.winner()
+        return self.board.winner(self.mode)
 
     def reset(self):
         self._init()
@@ -30,12 +32,13 @@ class GameEngine:
             result = self._move(row, col)
             if not result:
                 self.selected = None
+                self.valid_moves = {}
                 self.select(row, col)
 
         piece = self.board.get_piece(row, col)
         if piece != 0 and piece.color == self.turn:
             self.selected = piece
-            self.valid_moves = self.board.get_valid_moves(piece)
+            self.valid_moves = self.board._get_valid_moves(piece, self.mode)
             return True
 
         return False
