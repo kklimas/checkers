@@ -7,7 +7,7 @@ pl:
     quit: Wyjście
   settings:
     app:
-      title: Ustaw. aplikacji
+      title: Ustawienia aplikacji
       language: Język
       theme: Kolorystyka
     game:

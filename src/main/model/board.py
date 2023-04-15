@@ -1,17 +1,27 @@
 import pygame
-from src.resources.constants import BLACK, ROWS, GREY, SQUARE_SIZE, COLS, WHITE
+
+from src.main.enum.game_theme import GameTheme
 from src.main.model.checker import Checker
+from src.resources.constants import BLACK, ROWS, SQUARE_SIZE, COLS, WHITE, LIGHT_THEME, DARK_THEME
 
 
 class Board:
-    def __init__(self):
+    def __init__(self, game_mode):
         self.board = []
         self.counter_black_left = self.counter_white_left = 12
         self.counter_black_kings = self.counter_white_kings = 0
         self.create_board()
+        self.game_mode = game_mode
+        self._get_theme()
+
+    def _get_theme(self):
+        if GameTheme.LIGHT == self.game_mode.theme:
+            self.theme = LIGHT_THEME
+            return
+        self.theme = DARK_THEME
 
     def create_board(self):
-        self.board = [[0 for row in range(ROWS)] for col in range(COLS)]
+        self.board = [[0 for _ in range(ROWS)] for _ in range(COLS)]
         for row in range(ROWS):
             for col in range(COLS):
                 if (row + col) % 2 == 1:
@@ -30,9 +40,13 @@ class Board:
 
     def draw_squares(self, window):
         window.fill(BLACK)
+        white_field = self.theme.get('white-field')
+        black_field = self.theme.get('black-field')
         for row in range(ROWS):
             for col in range(row % 2, COLS, 2):
-                pygame.draw.rect(window, GREY, (row * SQUARE_SIZE, col * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+                pygame.draw.rect(window, white_field, (row * SQUARE_SIZE, col * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+            for col in range(row % 2 - 1, COLS, 2):
+                pygame.draw.rect(window, black_field, (row * SQUARE_SIZE, col * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
     def get_piece(self, row, col):
         return self.board[row][col]
@@ -98,7 +112,7 @@ class Board:
         if piece.king:
             if mode.king_multiple_moves:
                 moves.update(self._traverse_left(row - 1, -1, -1, piece.color, col_left, True))
-                moves.update(self._traverse_right(row - 1,  -1, -1, piece.color, col_right, True))
+                moves.update(self._traverse_right(row - 1, -1, -1, piece.color, col_right, True))
                 moves.update(self._traverse_left(row + 1, ROWS, 1, piece.color, col_left, True))
                 moves.update(self._traverse_right(row + 1, ROWS, 1, piece.color, col_right, True))
             else:

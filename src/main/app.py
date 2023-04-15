@@ -22,7 +22,7 @@ class App:
 
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(self.i18n.get('app.title'))
-        self.button_provider = ButtonProvider()
+        self.button_provider = ButtonProvider(self.i18n)
         self.game_mode = GameMode()
         self._update_theme()
         self.game = None
@@ -41,6 +41,7 @@ class App:
             event_list = pygame.event.get()
             match self.app_state:
                 case AppState.MENU:
+                    self.button_provider = ButtonProvider(self.i18n)
                     if self.button_provider.resume_button.draw(self.screen):
                         self.game = GameView(self.screen, self.game_mode)
                         self.app_state = AppState.GAME

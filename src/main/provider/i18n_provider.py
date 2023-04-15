@@ -4,6 +4,7 @@ from src.main.config.config import *
 class I18NProvider(I18NConfig):
     def __init__(self):
         I18NConfig.__init__(self)
+        self.change_locale(self.locale)
 
     @staticmethod
     def get(key):
