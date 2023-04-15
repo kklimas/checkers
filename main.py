@@ -1,21 +1,22 @@
 import pygame
 
-from resources.constants import WIDTH, HEIGHT, SQUARE_SIZE
-from src.engine.game_engine import GameEngine
+from src.resources.constants import WIDTH, HEIGHT, SQUARE_SIZE
+from src.main.app import App
+from src.main.engine.game_engine import GameEngine
 
 FPS = 5
 
-window = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Checkers')
+# window = pygame.display.set_mode((WIDTH, HEIGHT))
+# pygame.display.set_caption('Checkers')
+#
+#
+# def get_row_col_from_mouse(pos):
+#     x, y = pos
+#     row = y // SQUARE_SIZE
+#     col = x // SQUARE_SIZE
+#     return row, col
 
-
-def get_row_col_from_mouse(pos):
-    x, y = pos
-    row = y // SQUARE_SIZE
-    col = x // SQUARE_SIZE
-    return row, col
-
-
+#
 def main():
     run = True
     clock = pygame.time.Clock()
@@ -41,4 +42,6 @@ def main():
     pygame.quit()
 
 
-main()
+App()
+
+# main()
