@@ -1,8 +1,7 @@
 import pygame
 
-from src.resources.constants import WIDTH, HEIGHT, SQUARE_SIZE
 from src.main.app import App
-from src.main.engine.game_engine import GameEngine
+from src.main.view.game_view import GameView
 
 FPS = 5
 
@@ -20,7 +19,7 @@ FPS = 5
 def main():
     run = True
     clock = pygame.time.Clock()
-    game = GameEngine(window)
+    game = GameView(window)
 
     while run:
         clock.tick(FPS)

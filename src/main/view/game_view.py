@@ -4,7 +4,7 @@ from src.main.model.board import Board
 from src.resources.constants import BLACK, WHITE, BLUE, SQUARE_SIZE
 
 
-class GameEngine:
+class GameView:
     def __init__(self, window, game_mode):
         self._init(window, game_mode)
 

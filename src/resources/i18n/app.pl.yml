@@ -1,8 +1,17 @@
 pl:
   title: Checkers 2.0
-  welcome_message: Witaj użytkowniku!
 
   menu:
-    home: Dom
-    game: Zagraj
-    settings: Ustawienia
+    play: Graj
+    options: Ustawienia
+    quit: Wyjście
+  settings:
+    app:
+      title: Ustaw. aplikacji
+      language: Język
+      theme: Kolorystyka
+    game:
+      title: Tryb gry
+      king_move: Wielokrotne bicie króla
+      obligatory_beat: Wymuszone bicie
+      reverse_beat: Bicie w tył

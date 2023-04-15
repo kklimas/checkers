@@ -20,3 +20,7 @@ class I18NConfig(AppConfig):
     def __init__(self):
         AppConfig.__init__(self)
         i.load_path.append(self.i18n_context_path)
+
+    def set_locale(self, locale):
+        self.locale = locale
+        i.set('locale', self.locale)
