@@ -1,20 +1,44 @@
-import tkinter as tk
+import pygame
 
-from service.i18n_service import I18NService
-from views.dashboard import Dashboard
+from resources.constants import WIDTH, HEIGHT, SQUARE_SIZE
+from src.engine.game_engine import GameEngine
 
+FPS = 5
 
-class App:
-    def __init__(self):
-        self.i18n_service = I18NService()
-        root = tk.Tk()
-        main = Dashboard(root, self.i18n_service)
-        main.pack(side="top", fill="both", expand=True)
-        root.resizable(False, False)
-        root.wm_geometry("1200x600")
-        root.mainloop()
+window = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption('Checkers')
 
 
-if __name__ == '__main__':
-    App()
+def get_row_col_from_mouse(pos):
+    x, y = pos
+    row = y // SQUARE_SIZE
+    col = x // SQUARE_SIZE
+    return row, col
 
+
+def main():
+    run = True
+    clock = pygame.time.Clock()
+    game = GameEngine(window)
+
+    while run:
+        clock.tick(FPS)
+
+        if game.winner() is not None:
+            print(game.winner())
+            run = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                row, col = get_row_col_from_mouse(pos)
+                game.select(row, col)
+
+        game.update()
+
+    pygame.quit()
+
+
+main()
