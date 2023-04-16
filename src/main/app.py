@@ -1,5 +1,5 @@
 import pygame
-import i18n as i
+
 from src.main.enum.app_state import AppState
 from src.main.enum.game_lang import GameLang
 from src.main.enum.game_theme import GameTheme

@@ -22,13 +22,13 @@ class SettingsView:
         current_theme = themes[self.game_mode.theme.value]
 
         self.dropdowns = [
-            DropDown(275, 120, current_lang, langs, SettingType.LANG),
-            DropDown(425, 120, current_theme, themes, SettingType.THEME),
+            DropDown(275, 130, current_lang, langs, SettingType.LANG),
+            DropDown(425, 130, current_theme, themes, SettingType.THEME),
 
-            DropDown(100, 450, bool_stringify(self.game_mode.king_multiple_moves), given_booleans(),
+            DropDown(100, 460, bool_stringify(self.game_mode.king_multiple_moves), given_booleans(),
                      SettingType.KING_MOVE),
-            DropDown(350, 450, bool_stringify(self.game_mode.obligatory_beat), given_booleans(), SettingType.OBL_BEAT),
-            DropDown(600, 450, bool_stringify(self.game_mode.reverse_beat), given_booleans(), SettingType.REV_BEAT),
+            DropDown(350, 460, bool_stringify(self.game_mode.obligatory_beat), given_booleans(), SettingType.OBL_BEAT),
+            DropDown(600, 460, bool_stringify(self.game_mode.reverse_beat), given_booleans(), SettingType.REV_BEAT),
         ]
 
     def draw(self):

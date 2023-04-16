@@ -31,8 +31,8 @@ COLOR_LIST_ACTIVE = (255, 150, 150)
 
 CROWN = pygame.transform.scale(pygame.image.load('src/resources/assets/crown.png'), (45, 45))
 
-FONT_TITLE = pygame.font.SysFont("arialblack", 50)
-FONT = pygame.font.SysFont("arialblack", 30)
+FONT_TITLE = pygame.font.SysFont("arialblack", 40)
+FONT = pygame.font.SysFont("arialblack", 20)
 
 # images
 RESUME_IMG_PATH = "src/resources/assets/button_resume.png"
