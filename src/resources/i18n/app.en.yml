@@ -13,5 +13,5 @@ en:
     game:
       title: Game mode
       king_move: King multi move
-      obligatory_beat: Obligatory beat
+      obligatory_beat: Obligatory best beat
       reverse_beat: Reverse beat

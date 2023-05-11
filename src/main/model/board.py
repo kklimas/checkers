@@ -121,14 +121,44 @@ class Board:
                 moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
                 moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
 
-        if piece.color == BLACK or mode.reverse_beat:
-            moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.color, col_left, False))
-            moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.color, col_right, False))
-        if piece.color == WHITE or mode.reverse_beat:
-            moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
-            moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
+        elif mode.reverse_beat:
+            reverse_moves = {}
+            if piece.color == BLACK:
+                reverse_moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
+                reverse_moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
+                for move in reverse_moves:
+                    if len(reverse_moves[move]) > 0:
+                        moves[move] = reverse_moves[move]
 
-        # print(moves)
+                moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.color, col_left, False))
+                moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.color, col_right, False))
+            else:
+                reverse_moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.color, col_left, False))
+                reverse_moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.color, col_right, False))
+                for move in reverse_moves:
+                    if len(reverse_moves[move]) > 0:
+                        moves[move] = reverse_moves[move]
+
+                moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
+                moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
+
+        else:
+            if piece.color == BLACK:
+                moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.color, col_left, False))
+                moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.color, col_right, False))
+            else:
+                moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
+                moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
+
+        if mode.obligatory_beat:
+            best_move = 0
+            for move in moves:
+                best_move = max(best_move, len(moves[move]))
+            available_moves = {}
+            for move in moves:
+                if len(moves[move]) == best_move:
+                    available_moves[move] = moves[move]
+            return available_moves
 
         return moves
 

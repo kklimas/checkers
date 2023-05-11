@@ -12,6 +12,6 @@ pl:
       theme: Kolorystyka
     game:
       title: Tryb gry
-      king_move: Wielokrotne bicie króla
-      obligatory_beat: Wymuszone bicie
+      king_move: Wielokrotny ruch króla
+      obligatory_beat: Obowiązkowe najlepsze bicie
       reverse_beat: Bicie w tył
