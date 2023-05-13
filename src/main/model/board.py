@@ -180,7 +180,7 @@ class Board:
 
                 if last:
                     if step == -1:
-                        row = max(r - 3, 0)
+                        row = max(r - 3, -1)
                     else:
                         row = min(r + 3, ROWS)
                     moves.update(self._traverse_left(r + step, row, step, color, col_left - 1, king, skipped=last))
@@ -214,7 +214,7 @@ class Board:
 
                 if last:
                     if step == -1:
-                        row = max(r - 3, 0)
+                        row = max(r - 3, -1)
                     else:
                         row = min(r + 3, ROWS)
                     moves.update(self._traverse_left(r + step, row, step, color, col_right - 1, king, skipped=last))

@@ -1,15 +1,18 @@
+import time
+import random
 import pygame
 
 from src.main.enum.app_state import AppState
 from src.main.enum.game_lang import GameLang
 from src.main.enum.game_theme import GameTheme
 from src.main.enum.setting_type import SettingType
+from src.main.model.bot import Bot
 from src.main.model.game_mode import GameMode
 from src.main.provider.button_provider import ButtonProvider
 from src.main.provider.i18n_provider import I18NProvider
 from src.main.view.game_view import GameView
 from src.main.view.settings_view import SettingsView
-from src.resources.constants import WIDTH, HEIGHT, FPS, SQUARE_SIZE, LIGHT_THEME, DARK_THEME
+from src.resources.constants import WIDTH, HEIGHT, FPS, SQUARE_SIZE, LIGHT_THEME, DARK_THEME, BLACK, WHITE
 
 
 class App:
@@ -28,7 +31,10 @@ class App:
         self.game = None
         self.settings = None
         self.run = False
+        # todo zakres deep do wyboru w panelu 1-4
+        self.deep = 1
         self._run()
+
 
     def _run(self):
 
@@ -45,6 +51,7 @@ class App:
                     if self.button_provider.resume_button.draw(self.screen):
                         self.game = GameView(self.screen, self.game_mode)
                         self.app_state = AppState.GAME
+                        # self.app_state = AppState.BOT_GAME
 
                     if self.button_provider.settings_button.draw(self.screen):
                         self.app_state = AppState.SETTINGS
@@ -58,6 +65,29 @@ class App:
                         # todo handle data storage about the result of game
                         print(self.game.winner())
                         self.app_state = AppState.MENU
+
+                # todo handle option game with bot
+                case AppState.BOT_GAME:
+                    self.game.update()
+                    if self.game.winner() is not None:
+                        # todo handle data storage about the result of game
+                        print(self.game.winner())
+                        self.app_state = AppState.MENU
+
+                    if self.game.turn == WHITE:
+                        self.game.update()
+                        pygame.display.flip()
+
+                        bot = Bot(self.game_mode, self.deep)
+                        (bot_start_position, bot_move) = bot.find_best_move(self.game.board.board)
+                        # print(bot_start_position, bot_move)
+
+                        time.sleep(random.randint(5, 15) / 10)
+                        self.game.select(bot_start_position[0], bot_start_position[1])
+                        self.game.update()
+                        pygame.display.flip()
+                        time.sleep(random.randint(10, 15)/10)
+                        self.game.select(bot_move[0][0], bot_move[0][1])
 
                 case AppState.SETTINGS:
                     self._handle_settings_refresh(event_list)
@@ -80,6 +110,13 @@ class App:
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
                 self.game.select(row, col)
+
+            # todo handle option game with bot
+            if AppState.BOT_GAME == self.app_state and self.game.turn == BLACK and event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                row, col = get_row_col_from_mouse(pos)
+                self.game.select(row, col)
+
 
     def _update_theme(self):
         if self.game_mode.theme == GameTheme.DARK:
