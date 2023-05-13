@@ -55,12 +55,12 @@ class Board:
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
 
-        if row == ROWS - 1 or row == 0:
+        if row == ROWS - 1 and piece.color == WHITE:
             piece.make_king()
-            if piece.color == WHITE:
-                self.counter_white_kings += 1
-            else:
-                self.counter_black_kings += 1
+            self.counter_white_kings += 1
+        elif row == 0 and piece.color == BLACK:
+            piece.make_king()
+            self.counter_black_kings += 1
 
     def remove(self, pieces):
         for piece in pieces:

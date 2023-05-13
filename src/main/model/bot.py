@@ -119,7 +119,9 @@ class Bot:
         board[piece.row][piece.col], board[row][col] = board[row][col], board[piece.row][piece.col]
         piece.move(row, col)
 
-        if row == ROWS - 1 or row == 0:
+        if row == ROWS - 1 and piece.color == WHITE:
+            piece.make_king()
+        elif row == 0 and piece.color == BLACK:
             piece.make_king()
 
     def remove(self, board, pieces):
