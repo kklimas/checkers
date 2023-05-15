@@ -1,33 +1,32 @@
 from src.main.model.checker import Checker
-from src.main.view.game_view import GameView
 from src.resources.constants import ROWS, COLS, BLACK, WHITE
 
 
 class Bot:
-    def __init__(self, game_mode, deep):
+    def __init__(self, game_mode):
         self.game_mode = game_mode
-        self.deep = deep
+        self.deep = game_mode.difficulty.value[1]
         self.bot_turn = True
 
     def find_best_move(self, board):
         copied_board = self.copy_board(board)
-        (start_position, move) = self._find_best_move(copied_board, [0, 0], [(0, 0), -1], 0)
+        start_position, move = self._find_best_move(copied_board, [0, 0], [(0, 0), -1], 0)
 
-        if start_position == [ROWS-1, COLS-1] and move == [(0, 0), -1]:
+        if start_position == [ROWS - 1, COLS - 1] and move == [(0, 0), -1]:
             for row in range(ROWS):
                 for col in range(COLS):
                     if board[row][col] != 0 and board[row][col].color == WHITE:
                         piece = board[row][col]
                         moves = self._get_valid_moves(board, piece)
                         for move in moves:
-                            return ([row, col], [move, -1])
-        return (start_position, move)
+                            return [row, col], [move, -1]
+        return start_position, move
 
-    def _find_best_move(self, board, start_position, first_move, deep):   # first_move = [(r,c),x]
+    def _find_best_move(self, board, start_position, first_move, deep):  # first_move = [(r,c),x]
         if self.bot_turn:
             self.bot_turn = False
             if deep == self.deep:
-                return (start_position, first_move)
+                return start_position, first_move
             elif deep == 0:
                 best_move = first_move
                 best_start_position = start_position
@@ -114,7 +113,7 @@ class Bot:
                     new_board[row][col] = Checker(row, col, WHITE)
                     new_board[row][col].king = board[row][col].king
         return new_board
-    
+
     def move(self, board, piece, row, col):
         board[piece.row][piece.col], board[row][col] = board[row][col], board[piece.row][piece.col]
         piece.move(row, col)
@@ -127,7 +126,6 @@ class Bot:
     def remove(self, board, pieces):
         for piece in pieces:
             board[piece.row][piece.col] = 0
-
 
     def _get_valid_moves(self, board, piece):
         moves = {}
@@ -150,7 +148,8 @@ class Bot:
         elif self.game_mode.reverse_beat:
             reverse_moves = {}
             if piece.color == BLACK:
-                reverse_moves.update(self._traverse_left(board, row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
+                reverse_moves.update(
+                    self._traverse_left(board, row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
                 reverse_moves.update(
                     self._traverse_right(board, row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
                 for move in reverse_moves:
@@ -160,8 +159,10 @@ class Bot:
                 moves.update(self._traverse_left(board, row - 1, max(row - 3, -1), -1, piece.color, col_left, False))
                 moves.update(self._traverse_right(board, row - 1, max(row - 3, -1), -1, piece.color, col_right, False))
             else:
-                reverse_moves.update(self._traverse_left(board, row - 1, max(row - 3, -1), -1, piece.color, col_left, False))
-                reverse_moves.update(self._traverse_right(board, row - 1, max(row - 3, -1), -1, piece.color, col_right, False))
+                reverse_moves.update(
+                    self._traverse_left(board, row - 1, max(row - 3, -1), -1, piece.color, col_left, False))
+                reverse_moves.update(
+                    self._traverse_right(board, row - 1, max(row - 3, -1), -1, piece.color, col_right, False))
                 for move in reverse_moves:
                     if len(reverse_moves[move]) > 0:
                         moves[move] = reverse_moves[move]
@@ -210,8 +211,10 @@ class Bot:
                         row = max(r - 3, -1)
                     else:
                         row = min(r + 3, ROWS)
-                    moves.update(self._traverse_left(board, r + step, row, step, color, col_left - 1, king, skipped=last))
-                    moves.update(self._traverse_right(board, r + step, row, step, color, col_left + 1, king, skipped=last))
+                    moves.update(
+                        self._traverse_left(board, r + step, row, step, color, col_left - 1, king, skipped=last))
+                    moves.update(
+                        self._traverse_right(board, r + step, row, step, color, col_left + 1, king, skipped=last))
 
                 if not king:
                     break
@@ -244,8 +247,10 @@ class Bot:
                         row = max(r - 3, -1)
                     else:
                         row = min(r + 3, ROWS)
-                    moves.update(self._traverse_left(board, r + step, row, step, color, col_right - 1, king, skipped=last))
-                    moves.update(self._traverse_right(board, r + step, row, step, color, col_right + 1, king, skipped=last))
+                    moves.update(
+                        self._traverse_left(board, r + step, row, step, color, col_right - 1, king, skipped=last))
+                    moves.update(
+                        self._traverse_right(board, r + step, row, step, color, col_right + 1, king, skipped=last))
 
                 if not king:
                     break

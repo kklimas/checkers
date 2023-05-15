@@ -5,6 +5,7 @@ en:
     play: Play
     options: Settings
     quit: Quit
+    back: Back
   settings:
     app:
       title: App settings
@@ -15,3 +16,19 @@ en:
       king_move: King multi move
       obligatory_beat: Obligatory best beat
       reverse_beat: Reverse beat
+      opponent:
+        title: Opponent
+        difficulty:
+          title: Difficulty
+          easy: Easy
+          medium: Medium
+          hard: Hard
+          expert: Expert
+        ai: Computer
+        human: Human
+      time:
+        title: Time (minutes)
+        one: One
+        three: Three
+        five: Five
+      won: won

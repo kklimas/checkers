@@ -2,9 +2,9 @@ import pygame
 
 pygame.init()
 
-WIDTH, HEIGHT = 800, 800
+WIDTH, BOARD_WIDTH, HEIGHT = 1000, 800, 800
 ROWS, COLS = 8, 8
-SQUARE_SIZE = WIDTH // COLS
+SQUARE_SIZE = BOARD_WIDTH // COLS
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -28,6 +28,8 @@ COLOR_INACTIVE = (100, 80, 255)
 COLOR_ACTIVE = (100, 200, 255)
 COLOR_LIST_INACTIVE = (255, 100, 100)
 COLOR_LIST_ACTIVE = (255, 150, 150)
+
+CLOCK_COUNTER_TICK = 10
 
 CROWN = pygame.transform.scale(pygame.image.load('src/resources/assets/crown.png'), (45, 45))
 

@@ -22,13 +22,8 @@ class SettingsView:
         current_theme = themes[self.game_mode.theme.value]
 
         self.dropdowns = [
-            DropDown(275, 130, current_lang, langs, SettingType.LANG),
-            DropDown(425, 130, current_theme, themes, SettingType.THEME),
-
-            DropDown(100, 460, bool_stringify(self.game_mode.king_multiple_moves), given_booleans(),
-                     SettingType.KING_MOVE),
-            DropDown(350, 460, bool_stringify(self.game_mode.obligatory_beat), given_booleans(), SettingType.OBL_BEAT),
-            DropDown(600, 460, bool_stringify(self.game_mode.reverse_beat), given_booleans(), SettingType.REV_BEAT),
+            DropDown(350, 130, current_lang, langs, SettingType.LANG),
+            DropDown(550, 130, current_theme, themes, SettingType.THEME),
         ]
 
     def draw(self):
@@ -39,14 +34,8 @@ class SettingsView:
     def _draw_labels(self):
         # app settings
         self._center(0, WIDTH, 10, 'app.title', True)
-        self._center(275, 375, 90, 'app.language')
-        self._center(425, 525, 90, 'app.theme')
-
-        # game mode
-        self._center(0, WIDTH, 350, 'game.title', True)
-        self._center(100, 200, 420, 'game.king_move')
-        self._center(350, 450, 420, 'game.obligatory_beat')
-        self._center(600, 700, 420, 'game.reverse_beat')
+        self._center(350, 450, 90, 'app.language')
+        self._center(550, 650, 90, 'app.theme')
 
     def _center(self, x1, x2, y, key, title_font=False):
         label, font = self._get_label(key, title_font)

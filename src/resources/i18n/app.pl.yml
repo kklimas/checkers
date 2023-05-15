@@ -5,6 +5,7 @@ pl:
     play: Graj
     options: Ustawienia
     quit: Wyjście
+    back: Powrót
   settings:
     app:
       title: Ustawienia aplikacji
@@ -15,3 +16,19 @@ pl:
       king_move: Wielokrotny ruch króla
       obligatory_beat: Obowiązkowe najlepsze bicie
       reverse_beat: Bicie w tył
+      opponent:
+        title: Przeciwnik
+        difficulty:
+          title: Trudność
+          easy: Łatwy
+          medium: Średni
+          hard: Trudny
+          expert: Expert
+        ai: Komputer
+        human: Człowiek
+      time:
+        title: Czas (minuty)
+        one: Jedna
+        three: Trzy
+        five: Pięć
+      won: won

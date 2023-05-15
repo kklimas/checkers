@@ -7,7 +7,7 @@ class DropDown:
     def __init__(self, x, y, main, options, setting_type):
         self.color_menu = [COLOR_INACTIVE, COLOR_ACTIVE]
         self.color_option = [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE]
-        self.rect = pg.Rect(x, y, 100, 50)
+        self.rect = pg.Rect(x, y, 120, 50)
         self.font = FONT
         self.main = main
         self.options = options
