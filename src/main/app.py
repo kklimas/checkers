@@ -94,15 +94,16 @@ class App:
                         bot = Bot(self.game_mode)
                         (bot_start_position, bot_move) = bot.find_best_move(self.game.board.board)
 
-                        time.sleep(random.randint(1, 5) / 10)
+                        time.sleep(random.randint(8, 12) / 10)
                         self.game.select(bot_start_position[0], bot_start_position[1])
                         self.game.update()
                         pygame.display.flip()
-                        time.sleep(random.randint(1, 5) / 10)
+                        time.sleep(random.randint(8, 12) / 10)
                         self.game.select(bot_move[0][0], bot_move[0][1])
 
-                    self._handle_in_game_panel()
-                    self._check_if_time_end()
+                    back_button = Button(850, 700, self.i18n.get('app.menu.back'), FONT, 20)
+                    if back_button.draw(self.screen):
+                        self.app_state = AppState.MENU
 
                 case AppState.AFTER_GAME:
                     label = ' ' + self.i18n.get('app.settings.game.won')

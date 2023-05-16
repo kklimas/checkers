@@ -98,6 +98,7 @@ class Bot:
             self.move(board, piece, current_best_move[0][0], current_best_move[0][1])
             if skipped:
                 self.remove(board, skipped)
+                first_move[1] -= len(skipped)
             return self._find_best_move(board, start_position, first_move, deep)
 
     def copy_board(self, board):

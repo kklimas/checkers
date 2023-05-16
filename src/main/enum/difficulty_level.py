@@ -5,7 +5,6 @@ class DifficultyLevel(Enum):
     EASY = 'Easy', 1
     MEDIUM = "Medium", 2
     HARD = 'Hard', 3
-    EXPERT = 'Expert', 4
 
     @staticmethod
     def from_string(value):
@@ -16,5 +15,3 @@ class DifficultyLevel(Enum):
                 return DifficultyLevel.MEDIUM
             case 'Hard':
                 return DifficultyLevel.HARD
-            case _:
-                return DifficultyLevel.EXPERT
