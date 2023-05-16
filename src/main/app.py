@@ -1,7 +1,3 @@
-import random
-import time
-
-import i18n
 import pygame
 
 from src.main.enum.app_state import AppState
@@ -79,8 +75,8 @@ class App:
                     if self.time_winner is not None or self.game.winner() is not None:
                         self.app_state = AppState.AFTER_GAME
 
-                    self._handle_in_game_panel()
                     self._check_if_time_end()
+                    self._handle_in_game_panel()
 
                 case AppState.BOT_GAME:
                     self.game.update()
@@ -94,15 +90,13 @@ class App:
                         bot = Bot(self.game_mode)
                         (bot_start_position, bot_move) = bot.find_best_move(self.game.board.board)
 
-                        time.sleep(random.randint(1, 5) / 10)
                         self.game.select(bot_start_position[0], bot_start_position[1])
                         self.game.update()
                         pygame.display.flip()
-                        time.sleep(random.randint(1, 5) / 10)
                         self.game.select(bot_move[0][0], bot_move[0][1])
 
-                    self._handle_in_game_panel()
                     self._check_if_time_end()
+                    self._draw_back_button()
 
                 case AppState.AFTER_GAME:
                     label = ' ' + self.i18n.get('app.settings.game.won')
@@ -204,9 +198,14 @@ class App:
         self._center(800, 1000, 350, 'vs')
         self._center(800, 1000, 400, self.game_mode.second_player.username)
         self._center(800, 1000, 430, self._from_millis(False))
+        self._draw_back_button()
+
+    def _draw_back_button(self):
         back_button = Button(850, 700, self.i18n.get('app.menu.back'), FONT, 20)
         if back_button.draw(self.screen):
             self.app_state = AppState.MENU
+            self.game = None
+            self.game_mode = GameMode()
 
     def _from_millis(self, is_first_player=True):
         millis = self.game_mode.first_player.current_time \
