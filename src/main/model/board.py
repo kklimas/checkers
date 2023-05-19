@@ -190,8 +190,10 @@ class Board:
                     break
             elif current.color == color:
                 break
-            else:
+            elif not last:
                 last = [current]
+            else:
+                break
             col_left -= 1
 
         return moves
@@ -224,8 +226,10 @@ class Board:
                     break
             elif current.color == color:
                 break
-            else:
+            elif not last:
                 last = [current]
+            else:
+                break
             col_right += 1
 
         return moves
