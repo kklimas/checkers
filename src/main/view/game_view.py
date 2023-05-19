@@ -10,7 +10,7 @@ class GameView:
 
     def _init(self, window, game_mode):
         self.selected = None
-        self.turn = BLACK
+        self.turn = WHITE
         self.valid_moves = {}
         self.mode = game_mode
         self.board = Board(game_mode)

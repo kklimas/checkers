@@ -1,0 +1,13 @@
+Imiê gracza: player 1
+Wynik rozgrywki: Przegrana
+Czas zapisu: 2023-05-19 21:41:13
+----
+Imiê gracza: player 2
+Wynik rozgrywki: Wygrana
+Czas zapisu: 2023-05-19 21:41:13
+----
+Imiê gracza: Computer
+Wynik rozgrywki: Wygrana
+Trudnoœæ: DifficultyLevel.EASY
+Czas zapisu: 2023-05-19 22:08:12
+----

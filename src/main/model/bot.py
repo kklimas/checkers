@@ -15,7 +15,7 @@ class Bot:
         if start_position == [ROWS - 1, COLS - 1] and move == [(0, 0), -1]:
             for row in range(ROWS):
                 for col in range(COLS):
-                    if board[row][col] != 0 and board[row][col].color == WHITE:
+                    if board[row][col] != 0 and board[row][col].color == BLACK:
                         piece = board[row][col]
                         moves = self._get_valid_moves(board, piece)
                         for move in moves:
@@ -34,7 +34,7 @@ class Bot:
                     for col in range(COLS):
                         start_position[0] = row
                         start_position[1] = col
-                        if board[row][col] != 0 and board[row][col].color == WHITE:
+                        if board[row][col] != 0 and board[row][col].color == BLACK:
                             piece = board[row][col]
                             moves = self._get_valid_moves(board, piece)
                             for move in moves:
@@ -59,7 +59,7 @@ class Bot:
                 best_start_position = start_position
                 for row in range(ROWS):
                     for col in range(COLS):
-                        if board[row][col] != 0 and board[row][col].color == WHITE:
+                        if board[row][col] != 0 and board[row][col].color == BLACK:
                             piece = board[row][col]
                             moves = self._get_valid_moves(board, piece)
                             for move in moves:
@@ -84,7 +84,7 @@ class Bot:
             skipped = []
             for row in range(ROWS):
                 for col in range(COLS):
-                    if board[row][col] != 0 and board[row][col].color == BLACK:
+                    if board[row][col] != 0 and board[row][col].color == WHITE:
                         piece = board[row][col]
                         moves = self._get_valid_moves(board, piece)
                         for move in moves:
@@ -93,7 +93,7 @@ class Bot:
                                 from_row_col = [row, col]
                                 skipped = moves[move]
             piece = board[from_row_col[0]][from_row_col[1]]
-            if piece == 0 or piece.color != BLACK:
+            if piece == 0 or piece.color != WHITE:
                 return (start_position, first_move)
             self.move(board, piece, current_best_move[0][0], current_best_move[0][1])
             if skipped:

@@ -15,6 +15,7 @@ from src.main.model.bot import Bot
 from src.main.model.button import Button
 from src.main.model.game_mode import GameMode
 from src.main.model.player import Player
+from src.main.model.statistics import Statistics
 from src.main.provider.button_provider import ButtonProvider
 from src.main.provider.i18n_provider import I18NProvider
 from src.main.util.time_prettier import TimePrettier
@@ -78,16 +79,30 @@ class App:
                     # todo handle data storage about the result of game
                     if self.time_winner is not None or self.game.winner() is not None:
                         self.app_state = AppState.AFTER_GAME
+                        statistics = Statistics()
+                        if self.time_winner == WHITE or self.game.winner() == WHITE:
+                            statistics.save_result(self.game_mode.first_player.username, "Wygrana")
+                            statistics.save_result(self.game_mode.second_player.username, "Przegrana")
+                        else:
+                            statistics.save_result(self.game_mode.first_player.username, "Przegrana")
+                            statistics.save_result(self.game_mode.second_player.username, "Wygrana")
 
                     self._check_if_time_end()
                     self._handle_in_game_panel()
 
                 case AppState.BOT_GAME:
                     self.game.update()
-                    if self.time_winner is not None or self.game.winner() is not None:
+                    if self.game.winner() is not None:
                         self.app_state = AppState.AFTER_GAME
+                        statistics = Statistics()
+                        if self.time_winner == BLACK or self.game.winner() == BLACK:
+                            statistics.save_result(self.game_mode.first_player.username, "Wygrana",
+                                                   self.game_mode.difficulty)
+                        else:
+                            statistics.save_result(self.game_mode.first_player.username, "Przegrana",
+                                                   self.game_mode.difficulty)
 
-                    if self.game.turn == WHITE:
+                    if self.game.turn == BLACK:
                         self.game.update()
                         pygame.display.flip()
 
@@ -101,7 +116,6 @@ class App:
                         time.sleep(random.randint(8, 12) / 10)
                         self.game.select(bot_move[0][0], bot_move[0][1])
 
-                    self._check_if_time_end()
                     self._draw_back_button()
 
                 case AppState.AFTER_GAME:
@@ -151,7 +165,7 @@ class App:
                 if row < ROWS and col < COLS:
                     self.game.select(row, col)
 
-            if AppState.BOT_GAME == self.app_state and self.game.turn == BLACK and event.type == pygame.MOUSEBUTTONDOWN:
+            if AppState.BOT_GAME == self.app_state and self.game.turn == WHITE and event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
                 if row < ROWS and col < COLS:
