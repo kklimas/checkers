@@ -11,3 +11,28 @@ Wynik rozgrywki: Wygrana
 Trudnoœæ: DifficultyLevel.EASY
 Czas zapisu: 2023-05-19 22:08:12
 ----
+Imiê gracza: Computer
+Wynik rozgrywki: Przegrana
+Trudnoœæ: Easy
+Czas zapisu: 2023-05-19 23:56:29
+----
+Imiê gracza: Computer
+Wynik rozgrywki: Przegrana
+Trudnoœæ: Hard
+Czas zapisu: 2023-05-20 00:01:26
+----
+Imiê gracza: Computer
+Wynik rozgrywki: Przegrana
+Trudnoœæ: Easy
+Czas zapisu: 2023-05-20 00:27:46
+----
+Imiê gracza: Computer
+Wynik rozgrywki: Wygrana
+Trudnoœæ: Easy
+Czas zapisu: 2023-05-20 01:11:58
+----
+Imiê gracza: Computer
+Wynik rozgrywki: Przegrana
+Trudnoœæ: Hard
+Czas zapisu: 2023-05-21 13:44:51
+----

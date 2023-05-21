@@ -12,6 +12,7 @@ from src.main.enum.opponent_type import OpponentType
 from src.main.enum.setting_type import SettingType
 from src.main.enum.time_option import TimeOption
 from src.main.model.bot import Bot
+from src.main.model.bot2 import Bot2
 from src.main.model.button import Button
 from src.main.model.game_mode import GameMode
 from src.main.model.player import Player
@@ -76,7 +77,6 @@ class App:
                 case AppState.GAME:
                     self.game.update()
 
-                    # todo handle data storage about the result of game
                     if self.time_winner is not None or self.game.winner() is not None:
                         self.app_state = AppState.AFTER_GAME
                         statistics = Statistics()
@@ -97,24 +97,28 @@ class App:
                         statistics = Statistics()
                         if self.time_winner == BLACK or self.game.winner() == BLACK:
                             statistics.save_result(self.game_mode.first_player.username, "Wygrana",
-                                                   self.game_mode.difficulty)
+                                                   self.game_mode.difficulty.value[0])
                         else:
                             statistics.save_result(self.game_mode.first_player.username, "Przegrana",
-                                                   self.game_mode.difficulty)
+                                                   self.game_mode.difficulty.value[0])
 
                     if self.game.turn == BLACK:
                         self.game.update()
                         pygame.display.flip()
 
-                        bot = Bot(self.game_mode)
-                        (bot_start_position, bot_move) = bot.find_best_move(self.game.board.board)
+                        # bot = Bot(self.game_mode)
+                        # (bot_start_position, bot_move) = bot.find_best_move(self.game.board.board)
+                        bot = Bot2(self.game.board.board, self.game_mode)
+                        (bot_start_position, bot_move) = bot.make_best_move(self.game.board.board,
+                                                                            self.game_mode.difficulty.value[1])
 
                         time.sleep(random.randint(8, 12) / 10)
                         self.game.select(bot_start_position[0], bot_start_position[1])
                         self.game.update()
                         pygame.display.flip()
                         time.sleep(random.randint(8, 12) / 10)
-                        self.game.select(bot_move[0][0], bot_move[0][1])
+                        # self.game.select(bot_move[0][0], bot_move[0][1])
+                        self.game.select(bot_move[0], bot_move[1])
 
                     self._draw_back_button()
 
@@ -242,6 +246,8 @@ class App:
             self.game = None
         if is_pre_game_view and play_button.draw(self.screen):
             max_time_millis = self.game_mode.time.value * 60 * 1000
+
+            # todo add place to write username
             self.game_mode.second_player = Player('player 2', max_time_millis)
             if self.game_mode.opponent == OpponentType.HUMAN:
                 self.game_mode.first_player = Player('player 1', max_time_millis)
