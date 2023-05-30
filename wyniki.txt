@@ -15,3 +15,11 @@ Imiê gracza: Username 2sss
 Wynik rozgrywki: Wygrana
 Czas zapisu: 2023-05-30 12:44:38
 ----
+Imiê gracza: Username 123
+Wynik rozgrywki: Przegrana
+Czas zapisu: 2023-05-30 13:25:41
+----
+Imiê gracza: Username 2sss
+Wynik rozgrywki: Wygrana
+Czas zapisu: 2023-05-30 13:25:41
+----

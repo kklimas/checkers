@@ -14,9 +14,7 @@ class HistoryView:
         self.draw()
 
     def __clean_up_results(self):
-        self.latest_results.remove('\n')
-
-        print(self.latest_results)
+        self.latest_results = [line[:-1] for line in self.latest_results if '----\n' not in line][-6:]
 
     def draw(self):
         self._draw_labels()
