@@ -12,9 +12,9 @@ class SettingsView:
         self.game_mode = game_mode
         self.font_title = FONT_TITLE
         self.font = FONT
-        self._setup_dropdowns()
+        self.__setup_dropdowns()
 
-    def _setup_dropdowns(self):
+    def __setup_dropdowns(self):
         langs = [e.stringify() for e in GameLang]
         current_lang = langs[self.game_mode.language.value]
 

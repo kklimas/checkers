@@ -21,3 +21,6 @@ class TimeOption(Enum):
                 return TimeOption.THREE
             case _:
                 return TimeOption.FIVE
+
+    def stringify(self):
+        return str(self.value)

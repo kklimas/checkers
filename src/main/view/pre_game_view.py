@@ -19,13 +19,13 @@ class PreGameView:
         self.dropdowns = [
             DropDown(117, 160, bool_stringify(self.game_mode.king_multiple_moves), given_booleans(),
                      SettingType.KING_MOVE),
-            DropDown(450, 160, bool_stringify(self.game_mode.obligatory_beat), given_booleans(), SettingType.OBL_BEAT),
+            DropDown(450, 160, bool_stringify(self.game_mode.obligatory_best_beat), given_booleans(), SettingType.OBL_BEAT),
             DropDown(784, 160, bool_stringify(self.game_mode.reverse_beat), given_booleans(), SettingType.REV_BEAT),
-            DropDown(117, 360, OpponentType.HUMAN.value, [op.value for op in OpponentType],
+            DropDown(117, 360, self.game_mode.opponent.value, [op.value for op in OpponentType],
                      SettingType.OPPONENT),
-            DropDown(450, 360, DifficultyLevel.EASY.value[0], [d.value[0] for d in DifficultyLevel],
+            DropDown(450, 360, self.game_mode.difficulty.value[0], [d.value[0] for d in DifficultyLevel],
                      SettingType.DIFFICULTY),
-            DropDown(784, 360, str(TimeOption.FIVE.value), [str(t.value) for t in TimeOption], SettingType.TIME),
+            DropDown(784, 360, str(self.game_mode.time.value), [str(t.value) for t in TimeOption], SettingType.TIME),
         ]
 
     def draw(self):

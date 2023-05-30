@@ -150,7 +150,7 @@ class Board:
                 moves.update(self._traverse_left(row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
                 moves.update(self._traverse_right(row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
 
-        if mode.obligatory_beat:
+        if mode.obligatory_best_beat:
             best_move = 0
             for move in moves:
                 best_move = max(best_move, len(moves[move]))

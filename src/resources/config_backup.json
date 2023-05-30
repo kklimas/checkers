@@ -1,0 +1,12 @@
+{
+  "first_player": "Username 1",
+  "second_player": "Username 2",
+  "theme": "Dark",
+  "language": "EN",
+  "king_multiple_moves": false,
+  "obligatory_best_beat": false,
+  "reverse_beat": false,
+  "opponent": "Computer",
+  "difficulty": "Medium",
+  "time": "1"
+}

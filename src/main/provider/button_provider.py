@@ -14,8 +14,11 @@ class ButtonProvider:
         setting_text = self.i18n.get('app.menu.options')
         self.settings_button = Button(self._center_x(setting_text), 270, setting_text)
 
+        tutorial_text = self.i18n.get('app.menu.history')
+        self.tutorial_button = Button(self._center_x(tutorial_text), 405, tutorial_text)
+
         quit_text = self.i18n.get('app.menu.quit')
-        self.quit_button = Button(self._center_x(quit_text), 405, quit_text)
+        self.quit_button = Button(self._center_x(quit_text), 530, quit_text)
 
     def _center_x(self, text):
         text = self.i18n.get(text)

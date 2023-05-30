@@ -1,7 +1,6 @@
 import random
 import time
 
-import i18n
 import pygame
 
 from src.main.enum.app_state import AppState
@@ -19,10 +18,12 @@ from src.main.model.player import Player
 from src.main.model.statistics import Statistics
 from src.main.provider.button_provider import ButtonProvider
 from src.main.provider.i18n_provider import I18NProvider
+from src.main.util.json_util import JsonUtil
 from src.main.util.time_prettier import TimePrettier
 from src.main.view.game_view import GameView
 from src.main.view.pre_game_view import PreGameView
 from src.main.view.settings_view import SettingsView
+from src.main.view.history_view import HistoryView
 from src.resources.constants import WIDTH, HEIGHT, FPS, SQUARE_SIZE, LIGHT_THEME, DARK_THEME, BLACK, WHITE, FONT, ROWS, \
     COLS, CLOCK_COUNTER_TICK
 
@@ -33,12 +34,12 @@ class App:
 
     def _init(self):
         self.app_state = AppState.MENU
-        self.i18n = I18NProvider()
-
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption(self.i18n.get('app.title'))
+        self.json_util = JsonUtil()
+        self.game_mode = self.json_util.get_config()
+        self.i18n = I18NProvider(self.game_mode.language.stringify().lower())
         self.button_provider = ButtonProvider(self.i18n)
-        self.game_mode = GameMode()
+        pygame.display.set_caption(self.i18n.get('app.title'))
         self._update_theme()
         self.game = None
         self.settings = None
@@ -68,11 +69,18 @@ class App:
                         self.app_state = AppState.SETTINGS
                         self.settings = SettingsView(self.screen, self.game_mode, self.i18n)
 
+                    if self.button_provider.tutorial_button.draw(self.screen):
+                        self.app_state = AppState.HISTORY
+                        self.history_view = HistoryView(self.screen, self.i18n)
+
                     if self.button_provider.quit_button.draw(self.screen):
                         self.app_state = AppState.QUIT
 
                 case AppState.PRE_GAME:
                     self._handle_pregame_refresh(event_list)
+
+                case AppState.HISTORY:
+                    self._handle_history_view()
 
                 case AppState.GAME:
                     self.game.update()
@@ -106,8 +114,6 @@ class App:
                         self.game.update()
                         pygame.display.flip()
 
-                        # bot = Bot(self.game_mode)
-                        # (bot_start_position, bot_move) = bot.find_best_move(self.game.board.board)
                         bot = Bot2(self.game.board.board, self.game_mode)
                         (bot_start_position, bot_move) = bot.make_best_move(self.game.board.board,
                                                                             self.game_mode.difficulty.value[1])
@@ -117,7 +123,6 @@ class App:
                         self.game.update()
                         pygame.display.flip()
                         time.sleep(random.randint(8, 12) / 10)
-                        # self.game.select(bot_move[0][0], bot_move[0][1])
                         self.game.select(bot_move[0], bot_move[1])
 
                     self._draw_back_button()
@@ -161,6 +166,7 @@ class App:
                 self.app_state = AppState.MENU
 
             elif AppState.QUIT == self.app_state or (event.type == pygame.QUIT and AppState.MENU == self.app_state):
+                self.__handle_config_save()
                 self.run = False
 
             if AppState.GAME == self.app_state and event.type == pygame.MOUSEBUTTONDOWN:
@@ -193,6 +199,10 @@ class App:
         else:
             self.theme = LIGHT_THEME
 
+    def _handle_history_view(self):
+        self._handle_buttons(False)
+        self.history_view.draw()
+
     def _handle_pregame_refresh(self, event_list):
         for dropdown in self.pregame.dropdowns:
             selected = dropdown.update(event_list)
@@ -201,7 +211,7 @@ class App:
                 allow_mode = dropdown.main == 'True'
                 match dropdown.type:
                     case SettingType.OBL_BEAT:
-                        self.game_mode.obligatory_beat = allow_mode
+                        self.game_mode.obligatory_best_beat = allow_mode
                     case SettingType.REV_BEAT:
                         self.game_mode.reverse_beat = allow_mode
                     case SettingType.KING_MOVE:
@@ -229,7 +239,7 @@ class App:
         if back_button.draw(self.screen):
             self.app_state = AppState.MENU
             self.game = None
-            self.game_mode = GameMode()
+            self.game_mode = self.json_util.get_config()
 
     def _from_millis(self, is_first_player=True):
         millis = self.game_mode.first_player.current_time \
@@ -247,10 +257,9 @@ class App:
         if is_pre_game_view and play_button.draw(self.screen):
             max_time_millis = self.game_mode.time.value * 60 * 1000
 
-            # todo add place to write username
-            self.game_mode.second_player = Player('player 2', max_time_millis)
+            self.game_mode.second_player = Player(self.game_mode.second_player, max_time_millis)
             if self.game_mode.opponent == OpponentType.HUMAN:
-                self.game_mode.first_player = Player('player 1', max_time_millis)
+                self.game_mode.first_player = Player(self.game_mode.first_player, max_time_millis)
                 self.app_state = AppState.GAME
             else:
                 self.game_mode.first_player = Player('Computer', max_time_millis)
@@ -289,6 +298,9 @@ class App:
 
         self._handle_buttons(False)
         self.settings.draw()
+
+    def __handle_config_save(self):
+        self.json_util.save_config(self.game_mode)
 
 
 def get_row_col_from_mouse(pos):

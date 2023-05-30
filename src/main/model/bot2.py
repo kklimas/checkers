@@ -36,11 +36,9 @@ class Bot2:
             max_eval = float('-inf')
             best_move = None
             moves = self.get_all_valid_moves(board, BLACK)
-            # print(moves)
             for start, move in moves.items():
                 for position, captured_pieces in move.items():
                     new_board = copy.deepcopy(board)
-                    # print(start, position, captured_pieces, maximizing_player, depth)
                     self.make_move(new_board, new_board[start[0]][start[1]], position[0], position[1])
                     self.remove(board, captured_pieces)
 
@@ -56,11 +54,9 @@ class Bot2:
             min_eval = float('inf')
             best_move = None
             moves = self.get_all_valid_moves(board, WHITE)
-            # print(moves)
             for start, move in moves.items():
                 for position, captured_pieces in move.items():
                     new_board = copy.deepcopy(board)
-                    # print(start, position, captured_pieces, maximizing_player, depth)
                     self.make_move(new_board, new_board[start[0]][start[1]], position[0], position[1])
                     self.remove(board, captured_pieces)
 
@@ -170,7 +166,7 @@ class Bot2:
                 moves.update(self._traverse_left(board, row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
                 moves.update(self._traverse_right(board, row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
 
-        if self.game_mode.obligatory_beat:
+        if self.game_mode.obligatory_best_beat:
             best_move = 0
             for move in moves:
                 best_move = max(best_move, len(moves[move]))

@@ -1,10 +1,14 @@
 import datetime
 
+
 class Statistics:
-    def save_result(self, name, result, difficulty = None):
+    def __init__(self):
+        self.file_path = "wyniki.txt"
+
+    def save_result(self, name, result, difficulty=None):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
-            with open("wyniki.txt", "a") as file:
+            with open(self.file_path, "a") as file:
                 file.write(f"Imię gracza: {name}\n")
                 file.write(f"Wynik rozgrywki: {result}\n")
                 if difficulty:
@@ -17,3 +21,8 @@ class Statistics:
             print("Zapisano wynik w pliku.")
         except Exception as e:
             print(f"Wystąpił błąd podczas zapisu wyniku: {e}")
+
+    def get_latest_results(self):
+        with open(self.file_path, 'r') as result_file:
+            result = [line for line in result_file]
+            return result

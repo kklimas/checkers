@@ -2,8 +2,8 @@ from src.main.config.config import *
 
 
 class I18NProvider(I18NConfig):
-    def __init__(self):
-        I18NConfig.__init__(self)
+    def __init__(self, locale):
+        I18NConfig.__init__(self, locale)
         self.change_locale(self.locale)
 
     @staticmethod

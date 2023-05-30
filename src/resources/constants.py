@@ -35,10 +35,8 @@ CROWN = pygame.transform.scale(pygame.image.load('src/resources/assets/crown.png
 
 FONT_TITLE = pygame.font.SysFont("arialblack", 40)
 FONT = pygame.font.SysFont("arialblack", 20)
+RESULTS_FONT = pygame.font.SysFont("arialblack", 16)
 
-# images
-RESUME_IMG_PATH = "src/resources/assets/button_resume.png"
-SETTINGS_IMG_PATH = "src/resources/assets/button_options.png"
-QUIT_IMG_PATH = "src/resources/assets/button_quit.png"
+CONFIG_FILE_PATH = "src/resources/config.json"
 
 FPS = 30

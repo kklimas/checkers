@@ -4,9 +4,12 @@ en:
   menu:
     play: Play
     options: Settings
+    history: History
     quit: Quit
     back: Back
   settings:
+    user1: Username 1
+    user2: Username 2
     app:
       title: App settings
       language: Language

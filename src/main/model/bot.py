@@ -179,7 +179,7 @@ class Bot:
                 moves.update(self._traverse_left(board, row + 1, min(row + 3, ROWS), 1, piece.color, col_left, False))
                 moves.update(self._traverse_right(board, row + 1, min(row + 3, ROWS), 1, piece.color, col_right, False))
 
-        if self.game_mode.obligatory_beat:
+        if self.game_mode.obligatory_best_beat:
             best_move = 0
             for move in moves:
                 best_move = max(best_move, len(moves[move]))

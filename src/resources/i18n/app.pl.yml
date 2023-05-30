@@ -4,8 +4,11 @@ pl:
   menu:
     play: Graj
     options: Ustawienia
+    history: Historia
     quit: Wyjście
     back: Powrót
+    user1: Username 1
+    user2: Username 2
   settings:
     app:
       title: Ustawienia aplikacji
