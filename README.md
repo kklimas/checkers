@@ -1,7 +1,7 @@
 # Checkers
 
 ## About
-"Checkers" is a simple application that allows users to play checkers. It enables both 1v1 human vs. human gameplay and human vs. machine gameplay..
+`Checkers` is a simple application that allows users to play checkers. It enables both 1v1 human vs. human gameplay and human vs. machine gameplay..
 
 ## Configuration
 The application allows loading a configuration file with various settings and also enables changing most settings during gameplay. The configuration file is located in the directory ``/resources`` and is named ``config.json.``.
