@@ -1,1 +1,1 @@
-{"theme": "Dark", "language": "EN", "reverse_beat": true, "obligatory_best_beat": true, "king_multiple_moves": true, "opponent": "Computer", "difficulty": "Medium", "time": "0.1", "first_player": "Username 123", "second_player": "Username 2sss"}
+{"theme": "Dark", "language": "EN", "reverse_beat": false, "obligatory_best_beat": false, "king_multiple_moves": true, "opponent": "Computer", "difficulty": "Medium", "time": "0.1", "first_player": "Username 123", "second_player": "Username 2sss"}

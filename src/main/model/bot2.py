@@ -40,7 +40,7 @@ class Bot2:
                 for position, captured_pieces in move.items():
                     new_board = copy.deepcopy(board)
                     self.make_move(new_board, new_board[start[0]][start[1]], position[0], position[1])
-                    self.remove(board, captured_pieces)
+                    self.remove(new_board, captured_pieces)
 
                     eval, returned_move = self.minimax(new_board, depth - 1, alpha, beta, False)
                     if eval > max_eval:
@@ -58,7 +58,7 @@ class Bot2:
                 for position, captured_pieces in move.items():
                     new_board = copy.deepcopy(board)
                     self.make_move(new_board, new_board[start[0]][start[1]], position[0], position[1])
-                    self.remove(board, captured_pieces)
+                    self.remove(new_board, captured_pieces)
 
                     eval, returned_move = self.minimax(new_board, depth - 1, alpha, beta, True)
                     if eval < min_eval:
